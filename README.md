@@ -7,7 +7,7 @@ SocialApp is a sleek, modern social media interface built with HTML5, CSS3, and 
 #Features ✨
 
 #Home Feed:** Browse posts and create new updates with image previews.
-*Interactive Polls:** Create polls with dynamic options directly from the post creator.
+**Interactive Polls:** Create polls with dynamic options directly from the post creator.
 *Reels Experience:** A dedicated page for short-form video content.
 *Real-time Messaging UI:** A functional chat interface with conversation lists and message status.
 *User Profile:** View and edit personal information, bio, and social stats.
