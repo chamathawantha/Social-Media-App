@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Messages – SocialApp</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-left"><span class="logo"><i class="fa-solid fa-bolt"></i> SocialApp</span></div>
+  <div class="nav-center"></div>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="reels.html" class="nav-link"><i class="fa-solid fa-film"></i> Reels</a>
+    <a href="messages.html" class="nav-link active"><i class="fa-solid fa-message"></i> Messages</a>
+    <a href="profile.html" class="nav-link"><i class="fa-solid fa-user"></i> Profile</a>
+    <button class="icon-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+    <div class="nav-avatar">CA</div>
+  </div>
+</nav>
+
+<div class="messages-layout">
+  <!-- CONVERSATION LIST -->
+  <aside class="convo-list">
+    <div class="convo-search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <input type="text" placeholder="Search messages…" oninput="filterConvos(this.value)"/>
+    </div>
+    <ul id="convoList"></ul>
+  </aside>
+
+  <!-- CHAT AREA -->
+  <main class="chat-area">
+    <div class="chat-header" id="chatHeader">
+      <div class="avatar" id="chatAvatar">--</div>
+      <div>
+        <p class="chat-name" id="chatName">Select a conversation</p>
+        <p class="chat-status" id="chatStatus"></p>
+      </div>
+    </div>
+    <div class="chat-messages" id="chatMessages">
+      <div class="chat-empty"><i class="fa-regular fa-comment-dots" style="font-size:3rem"></i><p>Select a conversation to start chatting</p></div>
+    </div>
+    <div class="chat-input-row" id="chatInputRow" style="display:none">
+      <input type="text" id="msgInput" placeholder="Type a message…" onkeydown="if(event.key==='Enter') sendMsg()"/>
+      <button onclick="sendMsg()"><i class="fa-solid fa-paper-plane"></i></button>
+    </div>
+  </main>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/messages.js"></script>
+</body>
+</html>

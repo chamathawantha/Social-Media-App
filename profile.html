@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Profile – SocialApp</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="nav-left"><span class="logo"><i class="fa-solid fa-bolt"></i> SocialApp</span></div>
+  <div class="nav-center"></div>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="reels.html" class="nav-link"><i class="fa-solid fa-film"></i> Reels</a>
+    <a href="messages.html" class="nav-link"><i class="fa-solid fa-message"></i> Messages</a>
+    <a href="profile.html" class="nav-link active"><i class="fa-solid fa-user"></i> Profile</a>
+    <button class="icon-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+    <div class="nav-avatar">CA</div>
+  </div>
+</nav>
+
+<div class="profile-cover">
+  <div class="cover-bg"></div>
+  <div class="profile-info-card">
+    <div class="avatar profile-big-avatar">CA</div>
+    <div class="profile-meta">
+      <h2 id="profileName">Chamath Awantha</h2>
+      <p class="handle">@Chamath Awantha</p>
+      <p class="bio" id="profileBio">📸 Photographer & software engineer &amp; | Sri Lanka 🇱🇰</p>
+      <div class="profile-stats">
+        <div><strong id="postCount">0</strong><span>Posts</span></div>
+        <div><strong>248</strong><span>Followers</span></div>
+        <div><strong>183</strong><span>Following</span></div>
+      </div>
+    </div>
+    <button class="btn-edit-profile" onclick="toggleEdit()"><i class="fa-solid fa-pen"></i> Edit Profile</button>
+  </div>
+</div>
+
+<div class="edit-form-wrap" id="editForm" style="display:none">
+  <div class="card edit-form">
+    <h3>Edit Profile</h3>
+    <label>Full Name</label><input type="text" id="editName" value="Chamath Awantha"/>
+    <label>Username</label><input type="text" id="editUsername" value="Chamath Awantha"/>
+    <label>Bio</label><textarea id="editBio">📸 Photographer & software engineer | Sri Lanka 🇱🇰</textarea>
+    <div class="edit-btns">
+      <button class="btn-post" onclick="saveProfile()">Save</button>
+      <button class="btn-cancel" onclick="toggleEdit()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<div class="profile-posts-section">
+  <div class="profile-tabs">
+    <button class="ptab active" onclick="switchTab('posts',this)"><i class="fa-solid fa-grid-2"></i> Posts</button>
+    <button class="ptab" onclick="switchTab('saved',this)"><i class="fa-solid fa-bookmark"></i> Saved</button>
+  </div>
+  <div class="posts-grid" id="myPostsGrid"></div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/profile.js"></script>
+</body>
+</html>

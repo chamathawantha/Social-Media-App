@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SocialApp</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+</head>
+<body>
+
+<!-- ═══ NAVBAR ═══ -->
+<nav class="navbar">
+  <div class="nav-left">
+    <span class="logo"><i class="fa-solid fa-bolt"></i> SocialApp</span>
+  </div>
+  <div class="nav-center">
+    <div class="search-wrap">
+      <i class="fa-solid fa-magnifying-glass search-icon"></i>
+      <input type="text" class="search-bar" id="searchInput" placeholder="Search posts, users, hashtags…" oninput="handleSearch(this.value)" onfocus="showSearchPanel()" autocomplete="off"/>
+      <div class="search-panel" id="searchPanel"></div>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a href="index.html" class="nav-link active"><i class="fa-solid fa-house"></i> Home</a>
+    <a href="reels.html" class="nav-link"><i class="fa-solid fa-film"></i> Reels</a>
+    <a href="messages.html" class="nav-link"><i class="fa-solid fa-message"></i> Messages</a>
+    <a href="profile.html" class="nav-link"><i class="fa-solid fa-user"></i> Profile</a>
+    <button class="icon-btn" onclick="toggleTheme()" title="Toggle Theme"><i class="fa-solid fa-moon" id="themeIcon"></i></button>
+    <div class="notif-wrap">
+      <button class="icon-btn" onclick="toggleNotifPanel()"><i class="fa-solid fa-bell"></i><span class="notif-dot" id="notifDot"></span></button>
+      <div class="notif-panel" id="notifPanel">
+        <div class="notif-header"><strong>Notifications</strong><button onclick="markAllRead()">Mark all read</button></div>
+        <ul id="notifList"></ul>
+      </div>
+    </div>
+    <button class="icon-btn" onclick="openSaved()"><i class="fa-solid fa-bookmark"></i></button>
+    <div class="nav-avatar">CA</div>
+  </div>
+</nav>
+
+<!-- ═══ SAVED MODAL ═══ -->
+<div class="modal-overlay" id="savedModal" onclick="closeSavedOutside(event)">
+  <div class="modal-box">
+    <div class="modal-header"><h3><i class="fa-solid fa-bookmark"></i> Saved Posts</h3><button class="modal-close" onclick="closeSaved()"><i class="fa-solid fa-xmark"></i></button></div>
+    <div id="savedList" class="saved-list"></div>
+  </div>
+</div>
+
+<!-- ═══ STORY VIEWER MODAL ═══ -->
+<div class="modal-overlay" id="storyModal" onclick="closeStoryOutside(event)">
+  <div class="story-viewer" id="storyViewer">
+    <div class="story-top">
+      <div class="story-progress"><div class="story-bar" id="storyBar"></div></div>
+      <div class="story-meta">
+        <div class="avatar" id="storyAvatar">--</div>
+        <span id="storyUser">User</span>
+        <span id="storyTime" style="color:rgba(255,255,255,0.7);font-size:0.8rem;margin-left:6px"></span>
+      </div>
+      <button class="story-close" onclick="closeStory()"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+    <div class="story-content" id="storyContent"></div>
+    <div class="story-nav">
+      <button onclick="prevStory()"><i class="fa-solid fa-chevron-left"></i></button>
+      <button onclick="nextStory()"><i class="fa-solid fa-chevron-right"></i></button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ DM BUBBLE ═══ -->
+<div class="dm-bubble" onclick="window.location='messages.html'">
+  <i class="fa-solid fa-message"></i>
+  <span class="dm-badge" id="dmBadge">2</span>
+</div>
+
+<!-- ═══ EMOJI REACTION PICKER ═══ -->
+<div class="reaction-picker" id="reactionPicker">
+  <span onclick="pickReaction('❤️')">❤️</span>
+  <span onclick="pickReaction('😍')">😍</span>
+  <span onclick="pickReaction('😂')">😂</span>
+  <span onclick="pickReaction('😮')">😮</span>
+  <span onclick="pickReaction('😢')">😢</span>
+  <span onclick="pickReaction('😡')">😡</span>
+</div>
+
+<!-- ═══ MAIN LAYOUT ═══ -->
+<div class="main-layout">
+
+  <!-- LEFT SIDEBAR -->
+  <aside class="sidebar left-sidebar">
+    <div class="sidebar-card">
+      <div class="my-profile-mini">
+        <div class="avatar big-avatar">CA</div>
+        <div><p class="username">Chamath Awantha</p><p class="handle">@Chamath Awantha</p></div>
+      </div>
+      <hr/>
+      <ul class="sidebar-menu">
+        <li class="active"><i class="fa-solid fa-house"></i> Home Feed</li>
+        <li onclick="window.location='reels.html'"><i class="fa-solid fa-film"></i> Reels</li>
+        <li onclick="window.location='messages.html'"><i class="fa-solid fa-message"></i> Messages <span class="badge">2</span></li>
+        <li><i class="fa-solid fa-fire"></i> Trending</li>
+        <li onclick="openSaved()"><i class="fa-solid fa-bookmark"></i> Saved Posts</li>
+        <li onclick="toggleNotifPanel()"><i class="fa-solid fa-bell"></i> Notifications <span class="badge" id="notifBadge"></span></li>
+        <li onclick="toggleTheme()"><i class="fa-solid fa-circle-half-stroke"></i> Dark Mode</li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- FEED -->
+  <main class="feed">
+
+    <!-- STORIES -->
+    <div class="stories-bar" id="storiesBar"></div>
+
+    <!-- LIVE USERS -->
+    <div class="live-bar" id="liveBar"></div>
+
+    <!-- CREATE POST -->
+    <div class="card create-post">
+      <div class="create-post-top">
+        <div class="avatar">CA</div>
+        <textarea id="postText" placeholder="What's on your mind?" rows="3"></textarea>
+      </div>
+
+      <!-- POLL TOGGLE -->
+      <div id="pollSection" style="display:none" class="poll-create">
+        <input type="text" id="pollQ" placeholder="Poll question…" class="poll-input"/>
+        <div id="pollOptions">
+          <input type="text" class="poll-opt-input" placeholder="Option 1"/>
+          <input type="text" class="poll-opt-input" placeholder="Option 2"/>
+        </div>
+        <button class="add-opt-btn" onclick="addPollOption()"><i class="fa-solid fa-plus"></i> Add option</button>
+      </div>
+
+      <div class="create-post-actions">
+        <label class="img-label" for="imgInput"><i class="fa-regular fa-image"></i> Photo</label>
+        <input type="file" id="imgInput" accept="image/*" onchange="previewImage(event)" hidden/>
+        <button class="tool-btn" onclick="togglePoll()" title="Poll"><i class="fa-solid fa-chart-bar"></i> Poll</button>
+        <span id="fileName" class="file-name">No file chosen</span>
+        <button class="btn-post" onclick="createPost()"><i class="fa-solid fa-paper-plane"></i> Post</button>
+      </div>
+      <img id="imgPreview" class="img-preview" src="" alt="" style="display:none"/>
+    </div>
+
+    <div id="postsFeed"></div>
+  </main>
+
+  <!-- RIGHT SIDEBAR -->
+  <aside class="sidebar right-sidebar">
+    <div class="sidebar-card">
+      <h3 class="sidebar-title"><i class="fa-solid fa-circle-dot" style="color:#22c55e"></i> Online Friends</h3>
+      <ul class="friends-list" id="friendsList"></ul>
+    </div>
+    <div class="sidebar-card">
+      <h3 class="sidebar-title"><i class="fa-solid fa-user-plus"></i> Suggested Users</h3>
+      <ul class="suggested-list" id="suggestedList"></ul>
+    </div>
+    <!-- TRENDING HASHTAGS -->
+    <div class="sidebar-card">
+      <h3 class="sidebar-title"><i class="fa-solid fa-hashtag"></i> Trending</h3>
+      <ul class="trending-list" id="trendingList"></ul>
+    </div>
+  </aside>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
