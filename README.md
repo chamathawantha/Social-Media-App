@@ -1,4 +1,4 @@
-##SocialApp - Modern Social Media UI
+#SocialApp - Modern Social Media UI
 
 <img width="1512" height="858" alt="Screenshot 2026-04-17 at 9 48 48 PM" src="https://github.com/user-attachments/assets/26f6d01a-d454-4254-b80e-8756b74d3df8" />
 
